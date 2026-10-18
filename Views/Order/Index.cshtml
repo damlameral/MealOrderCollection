@@ -1,0 +1,47 @@
+@{
+    Layout = "_Layout";
+}
+
+@model List<MealOrder>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>All Meal Orders</h2>
+    <span class="badge bg-primary fs-6">Total Orders: @ViewBag.TotalOrdersCount</span>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Order ID</th>
+            <th>Student Name</th>
+            <th>Meal Name</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td><strong>@order.OrderID</strong></td>
+                <td>@order.StudentName</td>
+                <td>@order.MealName</td>
+                <td>
+                    @if (order.Collected)
+                    {
+                        <span class="badge bg-success">Picked Up</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-dark">Not Picked Up</span>
+                    }
+                </td>
+                <td>
+                    <a href="/Order/Info/@order.OrderID" class="btn btn-sm btn-outline-primary">
+                        Collection Details
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
