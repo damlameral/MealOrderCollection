@@ -1,54 +1,59 @@
 # Meal Order Collection System
 
+![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
+![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-MVC-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
+
 A web-based university cafeteria meal order and pickup tracking application built with **ASP.NET Core MVC**.
 
-Developed as Homework 1 for the **SWE 203: Web Programming** course at Sakarya University. It simulates the workflow of distributing prepared meals to students, allowing them to track collection statuses and collect their orders using unique Order IDs.
+Developed for the **SWE 203: Web Programming** course at Sakarya University. It simulates distributing prepared meals to students, allowing them to track collection statuses and claim orders using unique Order IDs.
+
+---
+
+## Screenshots
+
+### Cafeteria Dashboard
+
+![Cafeteria Dashboard](docs/dashboard.png)
+
+### All Meal Orders
+
+![All Meal Orders](docs/orders.png)
+
+### Meal Pickup Counter
+
+![Meal Pickup Counter](docs/pickup.png)
 
 ---
 
 ## Key Features
 
 - **Dashboard / Home View (`Home/Index`):**
-  - Displays today's date and the designated cafeteria name dynamically.
-  - Real-time counter for the total number of collected meal orders.
-  - Lists already collected meal orders in a structured table.
-  - Direct navigation links to the full order list and pickup page via the shared navbar.
-  - Centralized footer displaying developer details across all pages.
+  - Displays the current date and cafeteria name dynamically via `ViewBag`.
+  - Shows a real-time counter for total collected meal orders and lists collected records in a structured table.
+  - Provides shared navigation links and a centralized layout footer across all views.
 
 - **Order Catalog (`Order/Index`):**
-  - Complete list of all meal orders (both collected and pending).
-  - Displays `Order ID`, `Student Name`, `Meal Name`, and `Status` (Picked Up / Not Picked Up).
-  - Shows the total count of registered meal orders.
-  - Action link for each record navigating to the order details page using ASP.NET Core Tag Helpers.
+  - Lists all meal orders (both collected and pending) with `Order ID`, `Student Name`, `Meal Name`, and `Status` (_Picked Up_ / _Not Picked Up_).
+  - Displays the total count of registered orders and links each record to its details page via ASP.NET Core Tag Helpers.
 
 - **Order Details (`Order/Info/{id}`):**
-  - Accepts an order ID via route parameter.
-  - Displays detailed meal and student information.
-  - Shows the exact collection timestamp or indicates that the meal is pending collection.
+  - Resolves order records via route parameter binding (`id`).
+  - Displays student and meal metadata along with the exact pickup timestamp or pending status.
 
 - **Meal Pickup (`Pickup/Index`):**
-  - Interactive form accepting an `OrderID`.
-  - Updates the order status to `Collected = true` and logs the pickup timestamp (`DateTime.Now`).
-  - Handles validation feedback for missing or invalid orders.
-  - Implements the **Post/Redirect/Get (PRG)** pattern to prevent duplicate form submissions by redirecting directly to the order details page.
+  - Processes order claims by `OrderID`, updating `Collected = true` and recording the pickup timestamp (`DateTime.Now`).
+  - Validates missing or invalid order IDs with user feedback.
+  - Implements the **Post/Redirect/Get (PRG)** pattern via `RedirectToAction` to prevent duplicate form submissions.
 
 ---
 
-## Technical Details & Architecture
+## Technical Architecture
 
-The application is built following the **Model-View-Controller (MVC)** architectural pattern:
-
-- **Framework:** .NET Core / ASP.NET Core MVC
-- **State Management / In-Memory Data:** Static data repository (`Repository.cs`) maintaining pre-seeded meal records.
-- **Data Transfer & Model Binding:**
-  - `[HttpGet]` and `[HttpPost]` action separation for form handling.
-  - Strongly-typed models (`MealOrder.cs`) for view rendering.
-  - Dynamic data passing via `ViewBag` (cafeteria name, date, counters, error messages).
-  - Route parameter binding (`id`) and Form parameter binding (`orderId`).
-- **Tag Helpers & View Engine:**
-  - Built-in Tag Helpers (`asp-controller`, `asp-action`, `asp-route-id`) enabled via `_ViewImports.cshtml`.
-  - Post/Redirect/Get (PRG) pattern implemented using `RedirectToAction`.
-- **Layout System:** Unified layout management with `_Layout.cshtml`, `_ViewStart.cshtml`, and Bootstrap 5.
+- **Framework:** C#, ASP.NET Core MVC (.NET 10)
+- **State Management:** Static in-memory data repository (`Repository.cs`) with pre-seeded meal records.
+- **Data Transfer & Binding:** `[HttpGet]` / `[HttpPost]` action separation, strongly-typed `MealOrder` model, `ViewBag`, and route/form parameter binding.
+- **View Engine & Styling:** Razor Views, Tag Helpers (`_ViewImports.cshtml`), shared layout (`_Layout.cshtml`, `_ViewStart.cshtml`), and Bootstrap 5.
 
 ---
 
@@ -80,3 +85,20 @@ MealOrderCollection/
 ├── README.md
 └── MealOrderCollection.csproj
 ```
+
+---
+
+## Getting Started
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/damlameral/MealOrderCollection.git
+   cd MealOrderCollection
+   ```
+
+   2. **Run the application:**
+
+   ```bash
+   dotnet run
+   ```
